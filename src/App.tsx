@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import exp from "constants";
@@ -11,25 +11,46 @@ export type TaskType = {
 
 function App() {
     const title1 = 'What to learn';
-    const title2 = 'What to learn2';
 
-    const tasks1 = [
+    let [tasks, setTasks] = useState([
         { id: 1, title: "HTML&CSS", isDone: true },
         { id: 2, title: "JS", isDone: true },
         { id: 3, title: "ReactJS", isDone: false }
-    ]
-    const tasks2 = [
-        { id: 1, title: "Hello world", isDone: true },
-        { id: 2, title: "I am Happy", isDone: false },
-        { id: 3, title: "Yo", isDone: false },
-        { id: 4, title: "Yo", isDone: false }
-    ]
+    ])
+
+
+
+    const removeTask = (taskid: number) => {
+        setTasks(tasks = tasks.filter((el) => el.id !== taskid))
+
+    }
+
+    // let [filter, setFilter] = useState('All')
+    //
+    // let filteredTasks = tasks
+    //
+    // if(filter === 'Active'){
+    //     filteredTasks = tasks.filter(el => !el.isDone)
+    // }
+    //
+    // if(filter === 'Completed'){
+    //     filteredTasks = tasks.filter(el => el.isDone)
+    // }
+    //
+    // if(filter === 'All'){
+    //     filteredTasks = tasks
+    // }
+    //
+    // const filterTasks = (value: string) => {
+    //     setFilter(value)
+    // }
+
+
 
 
     return (
     <>
-        <TodoList title={title1} task={tasks1}/>
-        <TodoList title={title2} task={tasks2} />
+        <TodoList title={title1} task={tasks} removeTask={removeTask}/>
     </>
     );
 }
