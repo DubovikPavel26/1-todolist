@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import exp from "constants";
+import {v1} from "uuid";
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -13,17 +14,23 @@ function App() {
     const title1 = 'What to learn';
 
     let [tasks, setTasks] = useState([
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false }
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false }
     ])
 
     let [filter, setFilter] = useState('All')
 
 
 
-    const removeTask = (taskid: number) => {
+    const removeTask = (taskid: string) => {
         setTasks(tasks = tasks.filter((el) => el.id !== taskid))
+
+    }
+
+    const addTasks = (title: string) => {
+        const newTask = { id: v1(), title: title, isDone: false }
+        setTasks([newTask, ...tasks])
 
     }
 
@@ -50,7 +57,13 @@ function App() {
 
     return (
     <>
-        <TodoList title={title1} task={filteredTasks} removeTask={removeTask} filterTasks={filterTasks}/>
+        <TodoList
+            title={title1}
+            task={filteredTasks}
+            removeTask={removeTask}
+            filterTasks={filterTasks}
+            addTasks={addTasks}
+        />
     </>
     );
 }

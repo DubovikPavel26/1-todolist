@@ -11,9 +11,6 @@ root.render(
   <React.StrictMode>
       <div>
           <App />
-          <div>t</div>
-          <div>t</div>
-
       </div>
   </React.StrictMode>
 );
